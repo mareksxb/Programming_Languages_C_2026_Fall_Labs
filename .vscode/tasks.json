@@ -1,0 +1,28 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build All (Make)",
+      "type": "shell",
+      "command": "make",
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "Run: Hello",
+      "type": "shell",
+      "command": "make hello && ./bin/hello"
+    },
+    {
+      "label": "Run: Calculator",
+      "type": "shell",
+      "command": "make calculator && ./bin/calculator"
+    },
+    {
+      "label": "Run: Formats",
+      "type": "shell",
+      "command": "make formats && ./bin/formats"
+    }
+  ]
+}

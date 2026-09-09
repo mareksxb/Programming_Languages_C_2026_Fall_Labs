@@ -1,0 +1,18 @@
+
+# Build artifacts
+bin/
+*.o
+*.obj
+*.exe
+*.out
+
+# VS Code
+.vscode/ipch
+.vscode/.browse*
+.vscode/*.db
+
+# OS
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+Makefile copy

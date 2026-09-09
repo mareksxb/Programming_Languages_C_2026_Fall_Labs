@@ -1,0 +1,20 @@
+
+{
+  "name": "C Lab 1 Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu",
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "C_Cpp.clang_format_style": "Google",
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.makefile-tools"
+      ]
+    }
+  },
+  "postCreateCommand": "make"
+}
