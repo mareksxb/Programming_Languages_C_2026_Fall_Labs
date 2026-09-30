@@ -105,3 +105,23 @@ By the end of the course, students will be able to:
 - Demonstrate foundational skills for later systems and software courses
 
 
+
+---
+
+## ✅ Lab 1 — Completed
+
+- Built all Week 1 targets with `make` → `bin/hello`, `bin/calculator`, `bin/formats`
+- Ran `./bin/hello` and `./bin/hello Alice 42` successfully
+- Custom greeting added in `src/hello.c`
+
+```
+$ ./bin/hello
+Hello from Nihad Abbasov!
+You passed 0 argument(s).
+
+$ ./bin/hello Alice 42
+Hello from Nihad Abbasov!
+You passed 2 argument(s).
+  arg[1] = Alice
+  arg[2] = 42
+```
