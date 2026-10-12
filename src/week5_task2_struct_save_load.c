@@ -1,9 +1,9 @@
 // week5_task2_struct_save_load.c
-// Name: ________  Surname: ________  Student ID: ________
+// Name: Nihad  Surname: Abbasov  Student ID: 251ADB076
 //
 // Task 2: Save and load structured records from a file
 // Week 5 – Files & Modular Programming
-// TODO: Complete the function implementations and the file handling logic.
+// Saves one Student record to a text file and loads it back.
 //
 // Build: make lab5   Run: ./bin/week5_task2_struct_save_load
 
@@ -32,32 +32,62 @@ int main(void) {
     Student loaded = {0};
     const char *filename = "student.txt";
 
+    // The functions only report success or failure; main() decides what to do about it.
     printf("Saving student to file...\n");
-    // TODO: Call save_student(&s1, filename). If it fails, print an error and return EXIT_FAILURE.
+    if (save_student(&s1, filename) != 0) {
+        fprintf(stderr, "Error: could not save student to %s\n", filename);
+        return EXIT_FAILURE;
+    }
 
     printf("Loading student from file...\n");
-    // TODO: Call load_student(filename, &loaded). If it fails, print an error and return EXIT_FAILURE.
+    if (load_student(filename, &loaded) != 0) {
+        fprintf(stderr, "Error: could not load student from %s\n", filename);
+        return EXIT_FAILURE;
+    }
 
-    // TODO: Print the loaded data in exactly this format:
-    //       printf("Loaded student: %s, %d, GPA %.2f\n", ...);
+    printf("Loaded student: %s, %d, GPA %.2f\n", loaded.name, loaded.age, loaded.gpa);
 
-    (void)filename; (void)loaded;  // remove this line once you use these variables
     return EXIT_SUCCESS;
 }
 
-// TODO: Implement save_student()
-// Open the file for writing ("w"), return -1 if fopen() fails,
-// write "name age gpa" on one line with fprintf(), close the file and return 0.
+// Writes the student as one line "name age gpa", e.g. "Alice 21 3.75".
 int save_student(const Student *s, const char *filename) {
-    (void)s; (void)filename;  // remove this line when you implement the function
-    return -1;
+    if (s == NULL || filename == NULL) {
+        return -1;
+    }
+
+    // "w" creates the file, or overwrites an older version of it.
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        return -1;  // no exit() here: the caller decides how to handle the error
+    }
+
+    fprintf(fp, "%s %d %.2f\n", s->name, s->age, s->gpa);
+
+    // ferror() tells whether the write failed; fclose() flushes the buffer and can fail too.
+    int write_error = ferror(fp);
+    if (fclose(fp) != 0 || write_error) {
+        return -1;
+    }
+    return 0;
 }
 
-// TODO: Implement load_student()
-// Open the file for reading ("r"), return -1 if fopen() fails,
-// read the three fields with fscanf(fp, "%49s %d %f", ...) and check that it returned 3,
-// close the file in every case, and return 0 on success / -1 on failure.
+// Reads one "name age gpa" record from the file into *out.
 int load_student(const char *filename, Student *out) {
-    (void)filename; (void)out;  // remove this line when you implement the function
-    return -1;
+    if (filename == NULL || out == NULL) {
+        return -1;
+    }
+
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        return -1;
+    }
+
+    // %49s stops after 49 characters, so a long name cannot overflow name[50]
+    // (the last byte is needed for '\0'). fscanf() returns how many fields it filled.
+    int fields = fscanf(fp, "%49s %d %f", out->name, &out->age, &out->gpa);
+
+    fclose(fp);  // close the file whether the read worked or not
+
+    return (fields == 3) ? 0 : -1;
 }
