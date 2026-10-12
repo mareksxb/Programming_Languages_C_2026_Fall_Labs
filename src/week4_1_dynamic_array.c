@@ -1,7 +1,7 @@
 /*
  * week4_1_dynamic_array.c
- * Author: [Your Name]
- * Student ID: [Your ID]
+ * Author: Nihad Abbasov
+ * Student ID: 251ADB076
  * Description:
  *   Demonstrates creation and usage of a dynamic array using malloc.
  *   Allocate memory for n integers, read them from the user,
@@ -24,25 +24,43 @@ int main(void) {
         return 1;
     }
 
-    // TODO: Allocate memory for n integers using malloc
-    // Example: arr = malloc(n * sizeof(int));
+    // The size is only known at run time, so the array has to be allocated
+    // on the heap. sizeof(int) keeps the byte count correct on any platform.
+    arr = malloc(n * sizeof(int));
 
-    // TODO: Check allocation success
-    // If arr is NULL: print "Memory allocation failed." and return 1
+    // malloc returns NULL when it cannot reserve the memory. Using that
+    // pointer would crash the program, so stop here instead.
+    if (arr == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
 
-    // TODO: Print the prompt "Enter %d integers: " (with n), then read
-    //       n integers into the array.
-    //       If a value cannot be read: print "Invalid input.",
-    //       free the array and return 1
+    printf("Enter %d integers: ", n);
+    for (int i = 0; i < n; i++) {
+        // %d skips spaces and newlines, so the numbers can be typed on one
+        // line or on separate lines. scanf returns 1 only if it read a number.
+        if (scanf("%d", &arr[i]) != 1) {
+            free(arr);  // release the memory first so this exit does not leak
+            printf("Invalid input.\n");
+            return 1;
+        }
+    }
 
-    // TODO: Compute the sum and the average (use floating point for the average)
+    // long long so that adding many large ints cannot overflow the sum.
+    long long sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += arr[i];
+    }
 
-    // TODO: Print the results exactly as:
-    //       Sum = <sum>
-    //       Average = <average with 2 decimals, %.2f>
+    // Cast to double before dividing, otherwise integer division would
+    // cut the result (7 and 8 would give 7.00 instead of 7.50).
+    double average = (double)sum / n;
 
-    // TODO: Free allocated memory
-    (void)arr;  // remove this line once you use arr
+    printf("Sum = %lld\n", sum);
+    printf("Average = %.2f\n", average);
+
+    // Every successful malloc needs a matching free.
+    free(arr);
 
     return 0;
 }

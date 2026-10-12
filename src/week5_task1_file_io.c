@@ -1,9 +1,9 @@
 // week5_task1_file_io.c
-// Name: ________  Surname: ________  Student ID: ________
+// Name: Nihad  Surname: Abbasov  Student ID: 251ADB076
 //
 // Task 1: Read and write data from text files
 // Week 5 – Files & Modular Programming
-// TODO: Fill in the missing parts marked below.
+// Writes a few lines to a text file, then reads the file back line by line.
 //
 // Build: make lab5   Run: ./bin/week5_task1_file_io
 
@@ -19,22 +19,50 @@ int main(int argc, char *argv[]) {
     char line[LINE_LEN];
     int line_count = 0;
 
-    // BONUS: if a file name was given on the command line (argc > 1), use argv[1] instead.
+    // BONUS: a file name given on the command line replaces the default one.
+    if (argc > 1) {
+        filename = argv[1];
+    }
 
-    // TODO: 1. Print "Writing lines to <filename>..." and open the file for writing (mode "w")
-    // TODO: 2. Check that fp is not NULL. If it is: perror(filename); return EXIT_FAILURE;
-    // TODO: 3. Write 2–3 lines of text to the file using fprintf()
-    // TODO: 4. Close the file with fclose()
+    // 1. Open the file for writing. "w" creates it, or empties it if it already exists.
+    printf("Writing lines to %s...\n", filename);
+    fp = fopen(filename, "w");
 
-    // TODO: 5. Open the file again for reading (mode "r") and check for NULL again
-    // TODO: 6. Print "Reading contents:" and use fgets() in a loop to print each line
-    //          (BONUS: count the lines in line_count)
-    // TODO: 7. Close the file
+    // 2. fopen() returns NULL when the file cannot be opened (no permission, bad path...).
+    //    Writing through a NULL pointer would crash, so report the reason and stop.
+    if (fp == NULL) {
+        perror(filename);
+        return EXIT_FAILURE;
+    }
 
-    // BONUS: printf("Lines read: %d\n", line_count);
+    // 3. fprintf() works like printf(), but writes into the file instead of the console.
+    fprintf(fp, "Hello, file I/O in C!\n");
+    fprintf(fp, "This is another line.\n");
 
-    // Remove this line once you use these variables:
-    (void)argc; (void)argv; (void)fp; (void)filename; (void)line; (void)line_count;
+    // 4. fclose() flushes the buffered text to disk, so a failed write shows up here.
+    if (fclose(fp) != 0) {
+        perror(filename);
+        return EXIT_FAILURE;
+    }
+
+    // 5. Open the same file again, this time for reading.
+    fp = fopen(filename, "r");
+    if (fp == NULL) {
+        perror(filename);
+        return EXIT_FAILURE;
+    }
+
+    // 6. fgets() reads one line at a time (including its '\n') and returns NULL at end of file.
+    printf("Reading contents:\n");
+    while (fgets(line, sizeof line, fp) != NULL) {
+        printf("%s", line);
+        line_count++;
+    }
+
+    // 7. Close the file to release it.
+    fclose(fp);
+
+    printf("Lines read: %d\n", line_count);
 
     return EXIT_SUCCESS;
 }
