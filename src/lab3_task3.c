@@ -1,7 +1,7 @@
 /*
  * Lab 3, Task 3
- * Name: <your name>
- * Student ID: <your student ID>
+ * Name: RESHMA RAJENDRAN
+ * Student ID: 251ADB037
  *
  * Implement basic string handling functions.
  * Write your own versions of:
@@ -30,28 +30,35 @@
 #include <stdio.h>
 
 // Function prototypes
-int my_strlen(const char *str);
-void my_strcpy(char *dest, const char *src);
+int my_strlen(const char* str);
+void my_strcpy(char* dest, const char* src);
 
 int main(void) {
-    char test[] = "Programming in C";
-    char copy[100];
+  char test[] = "Programming in C";
+  char copy[100];
 
-    int len = my_strlen(test);
-    printf("Length: %d\n", len);
+  int len = my_strlen(test);
+  printf("Length: %d\n", len);
 
-    my_strcpy(copy, test);
-    printf("Copy: %s\n", copy);
+  my_strcpy(copy, test);
+  printf("Copy: %s\n", copy);
 
-    return 0;
+  return 0;
 }
 
 // Implement functions below
-int my_strlen(const char *str) {
-    // TODO: count characters until '\0'
-    return 0; // placeholder
+int my_strlen(const char* str) {
+  int length = 0;
+  while (str[length] != '\0') {
+    length++;
+  }
+  return length;
 }
-
-void my_strcpy(char *dest, const char *src) {
-    // TODO: copy characters until '\0', then write the '\0' into dest
+void my_strcpy(char* dest, const char* src) {
+  int i = 0;
+  while (src[i] != '\0') {
+    dest[i] = src[i];
+    i++;
+  }
+  dest[i] = '\0';
 }

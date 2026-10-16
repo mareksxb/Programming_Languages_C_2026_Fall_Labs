@@ -1,28 +1,20 @@
 #include <stdio.h>
-
-/*
-    Task:
-    Write a function `int is_prime(int n)` that returns 1 if n is prime,
-    0 otherwise.
-
-    In main():
-      - Ask user for an integer n (>= 2)
-      - If invalid, print an error
-      - Otherwise, print all prime numbers up to n
-*/
-
-int is_prime(int n) {
-    // TODO: check if n is prime using loop up to sqrt(n)
-    return 0; // placeholder
+int is_prime(int r) {
+    if (r < 2) return 0;
+    for (int a = 2; a < r; a++) {
+        if (r % a == 0) return 0;}
+    return 1;
 }
-
 int main(void) {
-    int n;
-
-    printf("Enter an integer n (>= 2): ");
-    scanf("%d", &n);
-
-    // TODO: validate input and print all primes up to n
-
+    int b;
+    printf("Enter r: ");
+    if (scanf("%d", &b) != 1) return 1;
+    if (b < 2) {
+        printf("b must be at least 2\n");}
+     else {
+        printf("Primes: ");
+        for (int c = 2; c <= b; c++) {
+            if (is_prime(c)) 
+            printf("%d\n ", c);}}
     return 0;
 }
