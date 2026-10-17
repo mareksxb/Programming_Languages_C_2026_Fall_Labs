@@ -1,5 +1,5 @@
 // week5_task1_file_io.c
-// Name: ________  Surname: ________  Student ID: ________
+// Name: Ece  Surname: Kaplan  Student ID: 260ABB008
 //
 // Task 1: Read and write data from text files
 // Week 5 – Files & Modular Programming
@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
     // BONUS: if a file name was given on the command line (argc > 1), use argv[1] instead.
 
-    // TODO: 1. Print "Writing lines to <filename>..." and open the file for writing (mode "w")
+    
     // TODO: 2. Check that fp is not NULL. If it is: perror(filename); return EXIT_FAILURE;
     // TODO: 3. Write 2–3 lines of text to the file using fprintf()
     // TODO: 4. Close the file with fclose()

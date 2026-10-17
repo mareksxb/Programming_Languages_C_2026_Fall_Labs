@@ -1,5 +1,5 @@
 // week5_task2_struct_save_load.c
-// Name: ________  Surname: ________  Student ID: ________
+// Name: Ece  Surname: Kaplan  Student ID: 260ABB008
 //
 // Task 2: Save and load structured records from a file
 // Week 5 – Files & Modular Programming
